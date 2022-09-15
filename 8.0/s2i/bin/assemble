@@ -67,8 +67,8 @@ fi
 
 #This should be moved to php-post-assemble in the glpi repo
 ln -s ../composer.phar bin/composer
-php bin/console locales:compile
 php bin/console dependencies install --composer-options="--no-scripts"
+php bin/console locales:compile
 
 # post-assemble files
 process_extending_files ./php-post-assemble/ ${PHP_CONTAINER_SCRIPTS_PATH}/post-assemble/
