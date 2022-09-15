@@ -69,6 +69,20 @@ if [ "x$PLATFORM" == "xel9" ] || [ "x$PLATFORM" == "xfedora" ]; then
 
 fi
 
+# This should move to php-pre-start/ in the glpi repo
+if [ -n "${DB_HOST:-}" -a -n "${DB_NAME:-}" -a -n "${DB_USER:-}" -a -n "${DB_PASSWORD:-}" ]; then
+  php bin/console db:configure --no-ansi --no-interaction \
+    --reconfigure \
+    --db-host="${DB_HOST}" \
+    --db-port="${DB_PORT:-3306}" \
+    --db-name="${DB_NAME}" \
+    --db-user="${DB_USER}" \
+    --db-password="${DB_PASSWORD}"
+elif [ -n "${DB_HOST:-}" -o -n "${DB_NAME:-}" -o -n "${DB_USER:-}" -o -n "${DB_PASSWORD:-}" ]; then
+  echo "WARNING: Found incompete database config in the environment; make sure you set all of:"
+  echo "  DB_HOST, DB_NAME, DB_USER, DB_PASSWORD"
+fi
+
 # pre-start files
 process_extending_files ${APP_DATA}/php-pre-start/ ${PHP_CONTAINER_SCRIPTS_PATH}/pre-start/
 
