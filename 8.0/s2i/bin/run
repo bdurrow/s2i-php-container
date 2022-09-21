@@ -83,7 +83,7 @@ elif [ -n "${DB_HOST:-}" -o -n "${DB_NAME:-}" -o -n "${DB_USER:-}" -o -n "${DB_P
   echo "  DB_HOST, DB_NAME, DB_USER, DB_PASSWORD"
 fi
 
-if [ -n "${REMOVE_INSTALL:-}" ]; then 
+if [ -n "${REMOVE_INSTALL:-}" -a -e "install/install.php" ]; then 
   echo "INFO: Found non-empty REMOVE_INSTALL environment variable; removing install/install.php"
   rm install/install.php;
 fi
